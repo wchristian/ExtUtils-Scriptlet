@@ -4,7 +4,7 @@ package ExtUtils::Scriptlet;
 
 # VERSION
 
-# ABSTRACT:
+# ABSTRACT: run perl code in a new process without quoting it, on any OS
 
 # COPYRIGHT
 
@@ -12,6 +12,15 @@ use Exporter 'import';
 use autodie;
 
 our @EXPORT_OK = qw( perl );
+
+=head1 FUNCTIONS
+
+=head2 perl
+
+Executes a given piece of perl code in a new process while dodging shell
+quoting.
+
+=cut
 
 sub perl {
     my ( $code, %p ) = @_;
