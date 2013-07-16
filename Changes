@@ -1,3 +1,6 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+1.131970  2013-07-16 21:59:07 Europe/Berlin
+ - initial trial release
