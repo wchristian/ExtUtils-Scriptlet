@@ -28,7 +28,8 @@ sub run {
     my %newlines = ( MSWin32 => "\r\n", Darwin => "\r" );
     my $newline = $newlines{$^O} || "\n";
     my $os_payload = " $newline ";
-    is ret perl( $code, payload => $os_payload ), length $os_payload, "payload with newlines has the right length";
+    is ret perl( $code, payload => $os_payload ), length $os_payload,
+      "payload with newlines has equal length on both sides";
 
     is ret perl( $code, payload => " ä " ), 4, "payload is sent as utf8 by default";
 
