@@ -10,7 +10,7 @@ use ExtUtils::Scriptlet 'perl';
 run();
 exit;
 
-sub ret($) { $_[0] >> 8 }
+sub ret($) { $_[0] > 0 ? $_[0] >> 8 : $_[0] }
 
 sub run {
 
@@ -38,6 +38,8 @@ sub run {
     is ret perl( $code, args => "-e exit -e 13" ), 13, "custom args are passed to the interpreter";
 
     is ret perl( 'exit length $ARGV[0]', argv => "meep" ), 4, "argv is passed correctly to the interpreter";
+
+    is ret perl( $code, args => "-e die" ), ( $^O eq "MSWin32" ? 255 : -1 ), "close is protected against SIGPIPE";
 
     return;
 }

@@ -42,7 +42,11 @@ sub perl {
       . "\n__END__\n"                    #
       . $p{payload};                     #
 
-    eval { close $fh };
+    eval {
+        # prevent the host perl from being terminated if the child perl dies
+        local $SIG{PIPE} = 'IGNORE';
+        close $fh;
+    };
 
     return $?;
 }
