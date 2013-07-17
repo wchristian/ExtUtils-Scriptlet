@@ -35,6 +35,8 @@ sub run {
     is ret perl( $code, encoding => ":encoding(iso-8859-15)", payload => " ä " ), 3,
       "the payload encoding can be modified";
 
+    is ret perl( $code, args => "-e exit -e 13" ), 13, "custom args are passed to the interpreter";
+
     is ret perl( 'exit length $ARGV[0]', argv => "meep" ), 4, "argv is passed correctly to the interpreter";
 
     return;
