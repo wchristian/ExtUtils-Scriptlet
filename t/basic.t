@@ -39,7 +39,7 @@ sub run {
 
     is ret perl( 'exit length $ARGV[0]', argv => "meep" ), 4, "argv is passed correctly to the interpreter";
 
-    is ret perl( $code, args => "-e die" ), ( $^O eq "MSWin32" ? 255 : -1 ), "close is protected against SIGPIPE";
+    isnt perl( $code, args => "-e die" ), 0, "close is protected against SIGPIPE";
 
     return;
 }
