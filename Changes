@@ -2,5 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+1.131980  2013-07-17 17:33:35 Europe/Berlin
+ - first proper release to get it into the index once
+ - more tests
+ - protection against SIGPIPE terminating the host process
+
 1.131970  2013-07-16 21:59:07 Europe/Berlin
  - initial trial release

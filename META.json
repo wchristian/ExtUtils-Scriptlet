@@ -60,10 +60,10 @@
    "provides" : {
       "ExtUtils::Scriptlet" : {
          "file" : "lib/ExtUtils/Scriptlet.pm",
-         "version" : "1.131970"
+         "version" : "1.131980"
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "mailto" : "bug-extutils-scriptlet at rt.cpan.org",
@@ -76,6 +76,6 @@
          "web" : "https://github.com/wchristian/ExtUtils-Scriptlet"
       }
    },
-   "version" : "1.131970"
+   "version" : "1.131980"
 }
 

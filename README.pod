@@ -4,7 +4,7 @@ ExtUtils::Scriptlet - run perl code in a new process without quoting it, on any 
 
 =head1 VERSION
 
-version 1.131970
+version 1.131980
 
 =head1 FUNCTIONS
 
