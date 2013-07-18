@@ -45,7 +45,7 @@ sub perl {
     eval {
         # prevent the host perl from being terminated if the child perl dies
         local $SIG{PIPE} = 'IGNORE';
-        close $fh;
+        close $fh;                       # grab exit value so we can return it
     };
 
     return $?;
