@@ -10,6 +10,7 @@ package ExtUtils::Scriptlet;
 
 use Exporter 'import';
 use autodie;
+use Data::Dumper;
 
 our @EXPORT_OK = qw( perl );
 
@@ -26,7 +27,9 @@ sub perl {
     my ( $code, %p ) = @_;
 
     die "No code given" if !$code;
-    die "\\r is not permitted in the code segment" if $code =~ /\r/;
+
+    # serialize code to protect from newline mangling
+    $code = Data::Dumper->new( [$code] )->Useqq( 1 )->Dump;
 
     $p{perl} ||= $^X;
     $p{encoding} ||= ":encoding(UTF-8)";
@@ -38,11 +41,12 @@ sub perl {
       "$p{perl} $p{args} - $p{argv}";    #
 
     print $fh                            #
-      $code                              #
+      "$code; eval \$VAR1;"              # unpack and execute serialized code
       . "\n__END__\n"                    #
       . $p{payload};                     #
 
     eval {
+
         # prevent the host perl from being terminated if the child perl dies
         local $SIG{PIPE} = 'IGNORE';
         close $fh;                       # grab exit value so we can return it

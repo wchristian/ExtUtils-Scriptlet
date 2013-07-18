@@ -18,18 +18,17 @@ sub run {
 
     is eval { perl }, undef, 'code is required';
 
-    is eval { perl "\r" }, undef, '\r are not allowed in the code segment';
+    my %newlines = ( MSWin32 => "\r\n", Darwin => "\r" );
+    my $os_newline = $newlines{$^O} || "\n";
+    is ret perl( "exit length qq[$os_newline]" ), length $os_newline, '\r in the code segment are handled correctly';
 
     isnt ret( eval { perl "exit 13", perl => "perl_does_not_exist" } || 1 ), 13, 'interpreter can be modified';
 
     my $code = 'local $/; exit length <STDIN>';
     is ret perl( $code, payload => "   " ), 3, "basic payload has the right length";
 
-    my %newlines = ( MSWin32 => "\r\n", Darwin => "\r" );
-    my $newline = $newlines{$^O} || "\n";
-    my $os_payload = " $newline ";
-    is ret perl( $code, payload => $os_payload ), length $os_payload,
-      "payload with newlines has equal length on both sides";
+    is ret perl( $code, payload => $os_newline ), length $os_newline,
+      "payload with os newlines has equal length on both sides";
 
     is ret perl( "binmode STDIN; $code", payload => " ä " ), 4, "payload is sent as utf8 by default";
 
