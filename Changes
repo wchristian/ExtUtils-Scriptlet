@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+1.131990  2013-07-18 14:49:33 Europe/Berlin
+ - added a bunch of explanatory comments
+ - forced transmission of code and payload segments to be binary
+
 1.131980  2013-07-17 17:33:35 Europe/Berlin
  - first proper release to get it into the index once
  - more tests
