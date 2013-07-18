@@ -20,7 +20,7 @@ sub run {
 
     is eval { perl "\r" }, undef, '\r are not allowed in the code segment';
 
-    isnt ret( eval { perl( "exit 13", perl => "perl_does_not_exist" ) } || 1 ), 13, 'interpreter can be modified';
+    isnt ret( eval { perl "exit 13", perl => "perl_does_not_exist" } || 1 ), 13, 'interpreter can be modified';
 
     my $code = 'local $/; exit length <STDIN>';
     is ret perl( $code, payload => "   " ), 3, "basic payload has the right length";
