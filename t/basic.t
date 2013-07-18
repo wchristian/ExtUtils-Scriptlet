@@ -32,8 +32,7 @@ sub run {
 
     is ret perl( "$code", payload => " ä " ), 4, "payload is sent as utf8 by default";
 
-    is ret perl( "$code", encoding => ":encoding(iso-8859-15)", payload => " ä " ), 3,
-      "the payload encoding can be modified";
+    is ret perl( "$code", encoding => "iso-8859-15", payload => " ä " ), 3, "the payload encoding can be modified";
 
     is perl( "exit 13", args => "-v" ), 0, "custom args are passed to the interpreter";
 

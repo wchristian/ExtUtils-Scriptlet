@@ -38,7 +38,7 @@ sub perl {
     $code = Data::Dumper->new( [$code] )->Useqq( 1 )->Dump;
 
     $p{perl} ||= $^X;
-    $p{encoding} ||= ":encoding(UTF-8)";
+    $p{encoding} = sprintf ":encoding(%s)", $p{encoding} || "UTF-8";
     $p{$_} ||= "" for qw( args argv payload );
 
     open                                 #
