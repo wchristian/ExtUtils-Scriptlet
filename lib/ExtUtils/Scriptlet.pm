@@ -29,6 +29,9 @@ sub perl {
     die "No code given" if !$code;
 
     # serialize code to protect from newline mangling
+    # Using Data::Dumper here because on 5.10.0 B::perlstring breaks with utf8
+    # strings. if DD turns out to have more problems, this can be replaced with
+    # B::perlstring.
     $code = Data::Dumper->new( [$code] )->Useqq( 1 )->Dump;
 
     $p{perl} ||= $^X;
