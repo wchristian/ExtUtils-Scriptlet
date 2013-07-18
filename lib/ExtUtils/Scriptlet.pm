@@ -37,11 +37,15 @@ sub perl {
 
     open                                 #
       my $fh,                            #
-      "|- $p{encoding}",                 #
+      "|- :raw $p{encoding}",            # :raw protects the payload from write
+                                         # mangling (newlines)
       "$p{perl} $p{args} - $p{argv}";    #
 
     print $fh                            #
-      "$code; eval \$VAR1;"              # unpack and execute serialized code
+      "binmode STDIN;"                   # protect the payload from read
+                                         # mangling (newlines, system locale)
+      . "$code; eval \$VAR1;"            # unpack and execute serialized code
+      . "die \$@ if \$@;"                #
       . "\n__END__\n"                    #
       . $p{payload};                     #
 
