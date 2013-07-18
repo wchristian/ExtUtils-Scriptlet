@@ -28,7 +28,10 @@ sub perl {
 
     die "No code given" if !$code;
 
-    # serialize code to protect from newline mangling
+    # Serialize code to protect from newline mangling. This is necessary since
+    # the perl interpreter runs source code through a newline filter, no matter
+    # how the file handles are configured. For the payload this is unnecessary
+    # as no further filters are forced onto it.
     # Using Data::Dumper here because on 5.10.0 B::perlstring breaks with utf8
     # strings. if DD turns out to have more problems, this can be replaced with
     # B::perlstring.
