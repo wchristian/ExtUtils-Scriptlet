@@ -10,7 +10,6 @@ package ExtUtils::Scriptlet;
 
 use Exporter 'import';
 use autodie;
-use Data::Dumper;
 
 our @EXPORT_OK = qw( perl );
 
@@ -28,14 +27,8 @@ sub perl {
 
     die "No code given" if !$code;
 
-    # Serialize code to protect from newline mangling. This is necessary since
-    # the perl interpreter runs source code through a newline filter, no matter
-    # how the file handles are configured. For the payload this is unnecessary
-    # as no further filters are forced onto it.
-    # Using Data::Dumper here because on 5.10.0 B::perlstring breaks with utf8
-    # strings. if DD turns out to have more problems, this can be replaced with
-    # B::perlstring.
-    $code = Data::Dumper->new( [$code] )->Useqq( 1 )->Dump;
+    # no idea why it needs 3, please send a letter if you know, so i can burn it
+    $code =~ s/\r\n/\r\r\r\n/g if $^O eq "MSWin32";
 
     $p{perl} ||= $^X;
     $p{encoding} = sprintf ":encoding(%s)", $p{encoding} || "UTF-8";
@@ -50,8 +43,7 @@ sub perl {
     print $fh                            #
       "binmode STDIN;"                   # protect the payload from read
                                          # mangling (newlines, system locale)
-      . "$code; eval \$VAR1;"            # unpack and execute serialized code
-      . "die \$@ if \$@;"                #
+      . "$code;"                         # unpack and execute serialized code
       . "\n__END__\n"                    #
       . $p{payload};                     #
 

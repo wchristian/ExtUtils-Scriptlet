@@ -18,8 +18,7 @@ sub run {
 
     is eval { perl }, undef, 'code is required';
 
-    my %newlines = ( MSWin32 => "\r\n", Darwin => "\r" );
-    my $os_newline = $newlines{$^O} || "\n";
+    my $os_newline = $^O eq "MSWin32" ? "\r\n" : "\n";
     is ret perl( "exit length qq[$os_newline]" ), length $os_newline, '\r in the code segment are handled correctly';
 
     isnt ret( eval { perl "exit 13", perl => "perl_does_not_exist" } || 1 ), 13, 'interpreter can be modified';
