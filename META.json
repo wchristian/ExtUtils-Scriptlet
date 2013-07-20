@@ -40,7 +40,6 @@
       },
       "runtime" : {
          "requires" : {
-            "Data::Dumper" : "0",
             "Exporter" : "0",
             "autodie" : "0",
             "perl" : "5.008",
@@ -61,7 +60,7 @@
    "provides" : {
       "ExtUtils::Scriptlet" : {
          "file" : "lib/ExtUtils/Scriptlet.pm",
-         "version" : "1.131990"
+         "version" : "1.132010"
       }
    },
    "release_status" : "stable",
@@ -77,6 +76,6 @@
          "web" : "https://github.com/wchristian/ExtUtils-Scriptlet"
       }
    },
-   "version" : "1.131990"
+   "version" : "1.132010"
 }
 
