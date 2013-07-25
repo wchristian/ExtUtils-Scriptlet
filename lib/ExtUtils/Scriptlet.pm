@@ -40,7 +40,7 @@ sub perl {
 
     $p{perl} ||= $^X;
     $p{encoding} = sprintf ":encoding(%s)", $p{encoding} || "UTF-8";
-    $p{$_} ||= "" for qw( args argv payload );
+    $p{$_} = defined $p{$_} ? $p{$_} : "" for qw( args argv payload );
 
     open                                 #
       my $fh,                            #
