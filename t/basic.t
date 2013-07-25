@@ -39,5 +39,9 @@ sub run {
 
     isnt perl( $code, args => "-e die" ), 0, "close is protected against SIGPIPE";
 
+    my $length = 15_000_000;
+    is ret perl( "local \$/; exit if $length == length <STDIN>; die", payload => " " x $length ), 0,
+      "big payloads are transmitted ok";
+
     return;
 }
