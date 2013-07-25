@@ -35,6 +35,10 @@ sub run {
 
     is ret perl( "exit FOO", args => "-Mconstant=FOO,1" ), 1, "custom args are passed to the interpreter";
 
+    isnt eval { perl( 'exit length $ARGV[0]', at_argv => "meep" ); 1 }, 1, "at_argv requires an array reference";
+
+    is ret perl( 'exit length $ARGV[0]', at_argv => ["meep"] ), 4, "at_argv is passed correctly to the interpreter";
+
     is ret perl( 'exit length $ARGV[0]', argv => "meep" ), 4, "argv is passed correctly to the interpreter";
 
     isnt perl( $code, args => "-e die" ), 0, "close is protected against SIGPIPE";
