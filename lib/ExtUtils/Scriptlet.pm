@@ -48,9 +48,8 @@ sub perl {
       . $p{payload};                     #
 
     eval {
-
-        # prevent the host perl from being terminated if the child perl dies
-        local $SIG{PIPE} = 'IGNORE';
+        local $SIG{PIPE} = 'IGNORE';     # prevent the host perl from being
+                                         # terminated if the child perl dies
         close $fh;                       # grab exit value so we can return it
     };
 
