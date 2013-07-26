@@ -204,7 +204,7 @@ just avoid the shell and quoting altogether.
 
 ExtUtils::Scriptlet does that.
 
-=head3 FUTURE
+=head1 FUTURE
 
 These are implementation points that i am considering, but not sure about yet.
 If you have thoughts on these, let me know, please.
