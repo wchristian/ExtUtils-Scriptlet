@@ -214,4 +214,16 @@ Right now encoding only determines how the payload is converted to bytes. It
 could also be used to decode in the child directly. I am not sure if that is a
 good idea or not.
 
+=head1 THANKS
+
+First off, thanks belong to mst for having the brilliant idea of separating this
+technique out of Object::Remote and making it a generalized module for this
+task. I did not have the idea, I just implemented it for him.
+
+Further thanks go to, in no particular order, to these people from irc.perl.org:
+mauke, brother, dolmen, haarg, xdg, ether
+
+All of them helped me a lot in figuring out the intricacies of making this
+possible and work comfortably.
+
 =cut
