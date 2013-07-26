@@ -193,8 +193,8 @@ complicated in the code you want to run you might end up running out of quoting
 delimiters. And i haven't even touched on quoting the OTHER arguments, or
 dealing with more fancy things like %PATH%, ^ or UTF-8.
 
-Now you might say "Well, just use a quoting module to take care of that!", but
-sadly those aren't 100% reliable either and i'm not even sure what other
+Now you might say "Well, just use Win32::ShellQuote to take care of that!", but
+sadly that's not 100% reliable either and i'm not even sure what other
 surprises might lurk on other OSes or other shells. The best way is really to
 just avoid the shell and quoting altogether.
 
