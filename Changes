@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+1.132070  2013-07-26 16:54:38 Europe/Berlin
+ - added documentation
+
 1.132060  2013-07-25 15:56:42 Europe/Berlin
  - added a new option to populate @ARGV without quoting
  - added a test for big payloads
