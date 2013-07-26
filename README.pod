@@ -4,7 +4,7 @@ ExtUtils::Scriptlet - run perl code in a new process without quoting it, on any 
 
 =head1 VERSION
 
-version 1.132072
+version 1.132073
 
 =head1 SYNOPSIS
 
@@ -108,33 +108,29 @@ just send this as the command line:
 
     C:\Perl\bin\perl.exe -Ilib -e require strict; print "module ok"
 
-So you need to quote the arguments manually. You might be tempted to do this:
+So you need to quote the arguments manually. And if you're used to quoting your
+-e with ', you make another mistake before you arrive on this:
 
-    system($^X, '-Ilib', '-e', qq{'require strict; print "module ok"'});
-
-But that doesn't work either, since windows needs double quotes to quote
-arguments. So you end up with this:
-
-    my $q = $^O eq 'MSWin32' ? '"' : "'";
+    my $q = $^O eq 'MSWin32' ? '"' : '';
     system($^X, '-Ilib', '-e', qq|${q}require strict; print "module ok"${q}|);
 
 That's pretty gross. But still not right, since the quotes around the string
 won't be escaped properly. So you try this:
 
-    my $q = $^O eq 'MSWin32' ? '"' : "'";
-    system($^X, '-Ilib', '-e', qq|${q}require strict; print \"module ok\"${q}|);
+    my $q = $^O eq 'MSWin32' ? '"' : '';
+    system($^X, '-Ilib', '-e', qq|${q}require strict; print \\"module ok\\"${q}|);
 
 But that doesn't work, since Windows has different escaping rules. What you need
 is this:
 
-    my $q = $^O eq 'MSWin32' ? '"' : '\'';
-    my $e = $^O eq 'MSWin32' ? '""' : '\\';
+    my $q = $^O eq 'MSWin32' ? '"' : '';
+    my $e = $^O eq 'MSWin32' ? '""' : '';
     system($^X, '-Ilib', '-e', qq|${q}require strict; print $e"module ok$e"${q}|);
 
 However depending on the number of quotes in your string, and the command
 parsing library you hit, that might not work either, so you need this:
 
-    my $q = $^O eq 'MSWin32' ? '"' : '\'';
+    my $q = $^O eq 'MSWin32' ? '"' : '';
     system($^X, '-Ilib', '-e', qq|${q}require strict; print qq[module ok]${q}|);
 
 That will work cross-platform. Unfortunately it's kind of a horror to get there
@@ -143,8 +139,8 @@ complicated in the code you want to run you might end up running out of quoting
 delimiters. And i haven't even touched on quoting the OTHER arguments, or
 dealing with more fancy things like %PATH%, ^ or UTF-8.
 
-Now you might say "Well, just use a quoting module to take care of that!", but
-sadly those aren't 100% reliable either and i'm not even sure what other
+Now you might say "Well, just use Win32::ShellQuote to take care of that!", but
+sadly that's not 100% reliable either and i'm not even sure what other
 surprises might lurk on other OSes or other shells. The best way is really to
 just avoid the shell and quoting altogether.
 
@@ -163,6 +159,18 @@ capture STDOUT and STDERR and return them as strings.
 Right now encoding only determines how the payload is converted to bytes. It
 could also be used to decode in the child directly. I am not sure if that is a
 good idea or not.
+
+=head1 THANKS
+
+First off, thanks belong to mst for having the brilliant idea of separating this
+technique out of Object::Remote and making it a generalized module for this
+task. I did not have the idea, I just implemented it for him.
+
+Further thanks go to, in no particular order, to these people from irc.perl.org:
+mauke, brother, dolmen, haarg, xdg, ether
+
+All of them helped me a lot in figuring out the intricacies of making this
+possible and work comfortably.
 
 =for :stopwords cpan testmatrix url annocpan anno bugtracker rt cpants kwalitee diff irc mailto metadata placeholders metacpan
 

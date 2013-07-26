@@ -2,8 +2,12 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+1.132073  2013-07-26 19:38:32 Europe/Berlin
+ - more doc fixes
+
 1.132072  2013-07-26 17:14:02 Europe/Berlin
  - more doc fixes
+ 
 1.132071  2013-07-26 16:59:07 Europe/Berlin
  - small doc fix
 
