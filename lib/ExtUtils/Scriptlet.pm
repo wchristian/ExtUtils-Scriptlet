@@ -176,7 +176,7 @@ That's pretty gross. But still not right, since the quotes around the string
 won't be escaped properly. So you try this:
 
     my $q = $^O eq 'MSWin32' ? '"' : "'";
-    system($^X, '-Ilib', '-e', qq|${q}require strict; print "module ok"${q}|);
+    system($^X, '-Ilib', '-e', qq|${q}require strict; print \"module ok\"${q}|);
 
 But that doesn't work, since Windows has different escaping rules. What you need
 is this:
