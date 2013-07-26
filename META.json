@@ -61,7 +61,7 @@
    "provides" : {
       "ExtUtils::Scriptlet" : {
          "file" : "lib/ExtUtils/Scriptlet.pm",
-         "version" : "1.132070"
+         "version" : "1.132071"
       }
    },
    "release_status" : "stable",
@@ -77,6 +77,6 @@
          "web" : "https://github.com/wchristian/ExtUtils-Scriptlet"
       }
    },
-   "version" : "1.132070"
+   "version" : "1.132071"
 }
 

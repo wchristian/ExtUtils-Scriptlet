@@ -4,7 +4,7 @@ ExtUtils::Scriptlet - run perl code in a new process without quoting it, on any 
 
 =head1 VERSION
 
-version 1.132070
+version 1.132071
 
 =head1 SYNOPSIS
 
@@ -150,7 +150,7 @@ just avoid the shell and quoting altogether.
 
 ExtUtils::Scriptlet does that.
 
-=head3 FUTURE
+=head1 FUTURE
 
 These are implementation points that i am considering, but not sure about yet.
 If you have thoughts on these, let me know, please.
