@@ -162,33 +162,29 @@ just send this as the command line:
 
     C:\Perl\bin\perl.exe -Ilib -e require strict; print "module ok"
 
-So you need to quote the arguments manually. You might be tempted to do this:
+So you need to quote the arguments manually. And if you're used to quoting your
+-e with ', you make another mistake before you arrive on this:
 
-    system($^X, '-Ilib', '-e', qq{'require strict; print "module ok"'});
-
-But that doesn't work either, since windows needs double quotes to quote
-arguments. So you end up with this:
-
-    my $q = $^O eq 'MSWin32' ? '"' : "'";
+    my $q = $^O eq 'MSWin32' ? '"' : '';
     system($^X, '-Ilib', '-e', qq|${q}require strict; print "module ok"${q}|);
 
 That's pretty gross. But still not right, since the quotes around the string
 won't be escaped properly. So you try this:
 
-    my $q = $^O eq 'MSWin32' ? '"' : "'";
-    system($^X, '-Ilib', '-e', qq|${q}require strict; print \"module ok\"${q}|);
+    my $q = $^O eq 'MSWin32' ? '"' : '';
+    system($^X, '-Ilib', '-e', qq|${q}require strict; print \\"module ok\\"${q}|);
 
 But that doesn't work, since Windows has different escaping rules. What you need
 is this:
 
-    my $q = $^O eq 'MSWin32' ? '"' : '\'';
-    my $e = $^O eq 'MSWin32' ? '""' : '\\';
+    my $q = $^O eq 'MSWin32' ? '"' : '';
+    my $e = $^O eq 'MSWin32' ? '""' : '';
     system($^X, '-Ilib', '-e', qq|${q}require strict; print $e"module ok$e"${q}|);
 
 However depending on the number of quotes in your string, and the command
 parsing library you hit, that might not work either, so you need this:
 
-    my $q = $^O eq 'MSWin32' ? '"' : '\'';
+    my $q = $^O eq 'MSWin32' ? '"' : '';
     system($^X, '-Ilib', '-e', qq|${q}require strict; print qq[module ok]${q}|);
 
 That will work cross-platform. Unfortunately it's kind of a horror to get there
