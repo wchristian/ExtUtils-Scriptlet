@@ -1,4 +1,5 @@
-use strictures;
+use strict;
+use warnings;
 
 package basic_test;
 
