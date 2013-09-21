@@ -4,7 +4,7 @@
       "Christian Walde <walde.christian@googlemail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.131560",
    "license" : [
       "unrestricted"
    ],
@@ -42,9 +42,9 @@
          "requires" : {
             "Data::Dumper" : "0",
             "Exporter" : "0",
-            "autodie" : "0",
             "perl" : "5.008",
-            "strictures" : "0"
+            "strict" : "0",
+            "warnings" : "0"
          }
       },
       "test" : {
@@ -52,16 +52,14 @@
             "File::Find" : "0",
             "File::Temp" : "0",
             "Test::More" : "0",
-            "strict" : "0",
-            "utf8" : "0",
-            "warnings" : "0"
+            "utf8" : "0"
          }
       }
    },
    "provides" : {
       "ExtUtils::Scriptlet" : {
          "file" : "lib/ExtUtils/Scriptlet.pm",
-         "version" : "1.132073"
+         "version" : "1.132640"
       }
    },
    "release_status" : "stable",
@@ -77,6 +75,6 @@
          "web" : "https://github.com/wchristian/ExtUtils-Scriptlet"
       }
    },
-   "version" : "1.132073"
+   "version" : "1.132640"
 }
 
